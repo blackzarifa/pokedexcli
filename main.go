@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
@@ -9,6 +10,16 @@ func main() {
 }
 
 func cleanInput(text string) []string {
-	stringArr := []string{}
-	return stringArr
+	text = strings.TrimSpace(text)
+	if text == "" {
+		return []string{}
+	}
+
+	words := strings.Fields(text)
+
+	for i, word := range words {
+		words[i] = strings.ToLower(word)
+	}
+
+	return words
 }
