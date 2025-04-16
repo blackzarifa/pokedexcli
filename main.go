@@ -7,3 +7,8 @@ import (
 func main() {
 	fmt.Println("Hello, World!")
 }
+
+func cleanInput(text string) []string {
+	stringArr := []string{}
+	return stringArr
+}
