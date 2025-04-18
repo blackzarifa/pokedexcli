@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -16,10 +17,12 @@ type LocationAreaResponse struct {
 	Results  []LocationArea `json:"results"`
 }
 
-var apiUrl string = "https://pokeapi.co/api/v2/"
+func fetchLocationAreas(url string) ([]LocationArea, error) {
+	if url == "" {
+		url = "https://pokeapi.co/api/v2/location-area"
+	}
 
-func fetchLocationAreas() ([]LocationArea, error) {
-	res, err := http.Get(apiUrl + "location-area")
+	res, err := http.Get(url)
 	if err != nil {
 		return nil, err
 	}
@@ -35,5 +38,14 @@ func fetchLocationAreas() ([]LocationArea, error) {
 }
 
 func commandMap() error {
+	locationAreas, err := fetchLocationAreas("")
+	if err != nil {
+		return err
+	}
+
+	for _, area := range locationAreas {
+		fmt.Println(area.Name)
+	}
+
 	return nil
 }
