@@ -7,12 +7,6 @@ import (
 	"strings"
 )
 
-type cliCommand struct {
-	name        string
-	description string
-	callback    func() error
-}
-
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
@@ -43,6 +37,12 @@ func cleanInput(text string) []string {
 	lower := strings.ToLower(text)
 	textArr := strings.Fields(lower)
 	return textArr
+}
+
+type cliCommand struct {
+	name        string
+	description string
+	callback    func() error
 }
 
 func getCommands() map[string]cliCommand {
