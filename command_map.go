@@ -11,7 +11,9 @@ type LocationArea struct {
 }
 
 type LocationAreaResponse struct {
-	Results []LocationArea `json:"results"`
+	Previous string         `json:"previous"`
+	Next     string         `json:"next"`
+	Results  []LocationArea `json:"results"`
 }
 
 var apiUrl string = "https://pokeapi.co/api/v2/"
@@ -30,4 +32,8 @@ func fetchLocationAreas() ([]LocationArea, error) {
 	}
 
 	return locationAreas.Results, nil
+}
+
+func commandMap() error {
+	return nil
 }
