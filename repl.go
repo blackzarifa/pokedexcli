@@ -13,8 +13,7 @@ func startRepl() {
 		fmt.Print("Pokedex > ")
 		scanner.Scan()
 
-		text := scanner.Text()
-		textArr := cleanInput(text)
+		textArr := cleanInput(scanner.Text())
 		if len(textArr) == 0 {
 			continue
 		}
@@ -24,16 +23,7 @@ func startRepl() {
 }
 
 func cleanInput(text string) []string {
-	text = strings.TrimSpace(text)
-	if text == "" {
-		return []string{}
-	}
-
-	words := strings.Fields(text)
-
-	for i, word := range words {
-		words[i] = strings.ToLower(word)
-	}
-
-	return words
+	lower := strings.ToLower(text)
+	textArr := strings.Fields(lower)
+	return textArr
 }
