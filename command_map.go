@@ -17,6 +17,11 @@ type LocationAreaResponse struct {
 	Results  []LocationArea `json:"results"`
 }
 
+var (
+	previousURL string
+	nextURL     string
+)
+
 func fetchLocationAreas(url string) ([]LocationArea, error) {
 	if url == "" {
 		url = "https://pokeapi.co/api/v2/location-area"
@@ -34,11 +39,31 @@ func fetchLocationAreas(url string) ([]LocationArea, error) {
 		return nil, err
 	}
 
+	previousURL = locationAreas.Previous
+	nextURL = locationAreas.Next
+
 	return locationAreas.Results, nil
 }
 
+func commandMapB() error {
+	if previousURL == "" {
+		return fmt.Errorf("you're on the first page")
+	}
+
+	locationAreas, err := fetchLocationAreas(previousURL)
+	if err != nil {
+		return err
+	}
+
+	for _, area := range locationAreas {
+		fmt.Println(area.Name)
+	}
+
+	return nil
+}
+
 func commandMap() error {
-	locationAreas, err := fetchLocationAreas("")
+	locationAreas, err := fetchLocationAreas(nextURL)
 	if err != nil {
 		return err
 	}
