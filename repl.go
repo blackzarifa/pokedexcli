@@ -59,7 +59,7 @@ func cleanInput(text string) []string {
 }
 
 func commandHelp() error {
-	fmt.Println("Welcome to Pokedex!")
+	fmt.Println("Welcome to the Pokedex!")
 	fmt.Print("Usage:\n\n")
 
 	for _, cmd := range commands {
