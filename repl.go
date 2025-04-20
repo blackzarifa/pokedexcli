@@ -32,10 +32,9 @@ func startRepl(cfg *config) {
 			continue
 		}
 
-		err := cmd.callback()
+		err := cmd.callback(cfg)
 		if err != nil {
 			fmt.Println(err)
-			continue
 		}
 	}
 }
@@ -49,7 +48,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func() error
+	callback    func(*config) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -59,15 +58,15 @@ func getCommands() map[string]cliCommand {
 			description: "Displays a help message",
 			callback:    commandHelp,
 		},
-		"mapb": {
-			name:        "mapb",
-			description: "Shows previous 20 location areas",
-			callback:    commandMapB,
-		},
 		"map": {
 			name:        "map",
 			description: "Shows next 20 location areas",
 			callback:    commandMap,
+		},
+		"mapb": {
+			name:        "mapb",
+			description: "Shows previous 20 location areas",
+			callback:    commandMapB,
 		},
 		"exit": {
 			name:        "exit",

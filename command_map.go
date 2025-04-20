@@ -45,12 +45,8 @@ func fetchLocationAreas(url string) ([]LocationArea, error) {
 	return locationAreas.Results, nil
 }
 
-func commandMapB() error {
-	if previousURL == "" {
-		return fmt.Errorf("you're on the first page")
-	}
-
-	locationAreas, err := fetchLocationAreas(previousURL)
+func commandMap(cfg *config) error {
+	locationAreas, err := fetchLocationAreas(nextURL)
 	if err != nil {
 		return err
 	}
@@ -62,8 +58,12 @@ func commandMapB() error {
 	return nil
 }
 
-func commandMap() error {
-	locationAreas, err := fetchLocationAreas(nextURL)
+func commandMapB(cfg *config) error {
+	if previousURL == "" {
+		return fmt.Errorf("you're on the first page")
+	}
+
+	locationAreas, err := fetchLocationAreas(previousURL)
 	if err != nil {
 		return err
 	}
