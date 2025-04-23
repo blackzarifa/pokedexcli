@@ -11,7 +11,7 @@ func commandExplore(cfg *config, args ...string) error {
 	}
 	locationName := args[0]
 
-	location, err := cfg.pokeapiClient.ListLocationPokemon(locationName)
+	location, err := cfg.pokeapiClient.GetLocation(locationName)
 	if err != nil {
 		return err
 	}

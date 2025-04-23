@@ -8,9 +8,9 @@ func (c *Client) ListLocations(pageURL *string) (LocationAreaResponse, error) {
 	return fetchFromAPI[LocationAreaResponse](c, url)
 }
 
-func (c *Client) ListLocationPokemon(
+func (c *Client) GetLocation(
 	areaName string,
-) (LocationAreaDetailsResponse, error) {
+) (Location, error) {
 	url := baseURL + "/location-area/" + areaName
-	return fetchFromAPI[LocationAreaDetailsResponse](c, url)
+	return fetchFromAPI[Location](c, url)
 }
