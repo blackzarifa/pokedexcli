@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func commandExplore(cfg *config) error {
+func commandExplore(cfg *config, args ...strings) error {
 	if len(cfg.args) == 0 {
 		return errors.New(
 			"need a location name to explore. Usage: explore [location]",

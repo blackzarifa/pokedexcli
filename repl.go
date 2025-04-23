@@ -12,7 +12,6 @@ type config struct {
 	pokeapiClient    pokeapi.Client
 	nextLocationsURL *string
 	prevLocationsURL *string
-	args             []string
 }
 
 func startRepl(cfg *config) {
@@ -26,20 +25,19 @@ func startRepl(cfg *config) {
 			continue
 		}
 
+		cmdName := textArr[0]
 		args := []string{}
 		if len(textArr) > 1 {
 			args = textArr[1:]
 		}
-		cfg.args = args
 
-		cmdName := textArr[0]
 		cmd, ok := getCommands()[cmdName]
 		if !ok {
 			fmt.Println("Unknown command")
 			continue
 		}
 
-		err := cmd.callback(cfg)
+		err := cmd.callback(cfg, args...)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -55,7 +53,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(*config) error
+	callback    func(*config, ...string) error
 }
 
 func getCommands() map[string]cliCommand {
